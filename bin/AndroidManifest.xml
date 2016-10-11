@@ -20,13 +20,12 @@
         android:allowBackup="true"
         android:icon="@drawable/peso_logo"
         android:label="@string/app_name"
-         android:theme="@style/AppBaseTheme"
+         android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
         >
         
         <activity
             android:name="com.peso.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,19 +34,16 @@
         </activity>
         <activity
             android:name="com.peso.model.WelcomeActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.peso.MaininterfaceActivity"
             android:label="@string/app_name" />
         <activity
             android:name="com.peso.model.SearchActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.peso.model.LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <!--
              <activity
             android:name=".view.Slidingmenu"
@@ -60,36 +56,29 @@
             />
         <activity
             android:name="com.peso.Sliding.MyCollectionActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.peso.Sliding.MyDownloadingActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.peso.Sliding.SystemMessageActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.peso.Sliding.SystemSettingActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.peso.model.CommentActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             />
         <activity
             android:name="com.peso.model.PublishActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name="com.peso.model.RegisterActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".SlidingmenuActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.peso.model.Advanced_Search"
             android:label="@string/app_name"

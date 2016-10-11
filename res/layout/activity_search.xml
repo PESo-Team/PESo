@@ -35,8 +35,7 @@
             android:id="@+id/search_comments_out"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1.1" >
+            android:layout_weight="1.5" >
 
             <AutoCompleteTextView
                 android:id="@+id/search_comments"
@@ -48,7 +47,7 @@
                 android:completionThreshold="1"
                 android:hint="@string/InputComments"
                 android:paddingLeft="10dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -62,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="8dp"
                     android:text="Advaced"
                     android:textSize="10sp" />
@@ -72,6 +71,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="3" >
 
             <Button

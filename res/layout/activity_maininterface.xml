@@ -14,7 +14,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
-            <include android:layout_width="match_parent" layout="@layout/activity_slidingmenu"/>
+
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_slidingmenu" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,49 +105,6 @@
                         android:textColor="#FFFFfd"
                         android:textSize="20sp" />
 
-                    <!-- 主界面 专业学科行 ”生物“ 按钮 -->
-                    <!--
-         <TextView
-             android:id="@+id/kemu1"
-             android:layout_weight="1"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:gravity="center"
-             android:text="@string/biology"
-             android:textSize="17sp" />
-         
-         主界面 专业学科行 ”物理“ 按钮
-         <TextView
-             android:id="@+id/kemu2"
-             android:layout_weight="1"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:gravity="center"
-             android:text="@string/Physics"
-             android:textSize="17sp" />
-         
-         主界面 专业学科行  ”医学“ 按钮
-         <TextView
-             android:id="@+id/kemu3"
-             android:layout_weight="1"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:gravity="center"
-             android:text="@string/medicine"
-             android:textSize="17sp" />
-         
-         主界面 专业学科行　 ”计算机“ 按钮
-         <TextView
-             android:id="@+id/kemu4"
-             android:layout_weight="1"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:gravity="center"
-             android:text="@string/computer"
-             android:textSize="17sp" />
-                    -->
-                    <!-- 主界面 专业学科行　 ”更多“ 按钮 -->
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -181,28 +142,32 @@
                         <ListView
                             android:id="@+id/list_view_main"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" 
-                            />
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"/>"
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/list_view_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/peso_logo" />
+                        </LinearLayout>
+                        
+                        
                     </LinearLayout>
-                    <!-- 主界面 专业学科行 ”标题“ 按钮 -->
-                    <!--
-             <TextView
-            android:id="@+id/shili"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@string/biaoti"
-            android:textSize="30sp" />-->
-                    <!-- 主界面 专业学科行　”下载“　按钮 -->
-                    <!--
-             <Button
-            android:id="@+id/button4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="200dp"
-            android:background="@drawable/ic_download" /> -->
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </com.peso.view.SlidingMenu>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+    </LinearLayout>
 
 </LinearLayout>

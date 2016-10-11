@@ -21,6 +21,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -43,8 +46,8 @@ import com.peso.view.SlidingMenu;
 
 import dbmodels.Publication;
 
-public class MaininterfaceActivity extends Activity implements
-		OnItemClickListener, OnScrollListener {
+public class MaininterfaceActivity extends Activity
+		implements OnItemClickListener, OnScrollListener {
 	private SlidingMenu mLeftMenu;// 侧滑菜单
 	// private Button mLeftMenu;//侧滑菜单按钮
 	private Button Search;
@@ -68,6 +71,7 @@ public class MaininterfaceActivity extends Activity implements
 	private TextView setting_text;
 
 	private ItemView mItemView; // 适配器recommend_text
+	private ImageView listview_image;
 	private ListView mMainListView;
 	// Bundle类用作携带数据，它类似于Map，用于存放key-value名值对形式的值
 	SharedPreferences sharedPreferences;
@@ -86,24 +90,23 @@ public class MaininterfaceActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_maininterface);
-		
+
 		initViews();
 		initViewsEven();
 
 		LayoutInflater inflater = getLayoutInflater();
 		footer = inflater.inflate(R.layout.footer_loading, null);
-		mMainListView.setVisibility(View.GONE);
 		footer.findViewById(R.id.load_layout).setVisibility(View.GONE);
 		mMainListView.addFooterView(footer);
 		SetTypeface();
 		LoadingItemBean();
 	}
-	
-	//Activity从后台重新回到前台时被调用  
-	    @Override  
-	    protected void onStart() {  
-	        super.onRestart();  
-	        /* sharedpreference */
+
+	// Activity从后台重新回到前台时被调用
+	@Override
+	protected void onStart() {
+		super.onRestart();
+		/* sharedpreference */
 		sharedPreferences = getSharedPreferences("UserInfo",
 				MODE_PRIVATE);
 		/*
@@ -114,13 +117,13 @@ public class MaininterfaceActivity extends Activity implements
 		/* //sharedpreference */
 		username = sharedPreferences.getString("username", "");
 		Update_Login();
-	    }  
+	}
 
 	private void SetTypeface() {
 		// TODO Auto-generated method stub
 		Title.setTypeface(typeface);
 		Login.setTypeface(typeface);
-		
+
 		personal_text.setTypeface(typeface);
 		recommend_text.setTypeface(typeface);
 		index_text.setTypeface(typeface);
@@ -179,19 +182,21 @@ public class MaininterfaceActivity extends Activity implements
 		// TODO Auto-generated method stub
 		/*--------------绑定id--------------*/
 		// 绑定控件
-		mMainListView = (ListView) findViewById(R.id.list_view_main);
+		mMainListView = (ListView) findViewById(R.id.list_view_main);// list_view_image
+		listview_image = (ImageView) findViewById(R.id.list_view_image);
 		Login = (TextView) findViewById(R.id.user_text);
 		Login1 = (ImageView) findViewById(R.id.user_image);
 		Title = (TextView) findViewById(R.id.top_textView);
 		// Logout=(TextView) findViewById(R.id.Logout);
-		Personalinformation = (LinearLayout) findViewById(R.id.personalinformation);
+		Personalinformation = (LinearLayout) findViewById(
+				R.id.personalinformation);
 		Mycollection = (LinearLayout) findViewById(R.id.mycollection);
 		Systemsetting = (LinearLayout) findViewById(R.id.systemsetting);
 		Mydownload = (LinearLayout) findViewById(R.id.mydownload);
 		mLeftMenu = (SlidingMenu) findViewById(R.id.id_menu);
 		Search = (Button) findViewById(R.id.search_button);
-		//侧滑文字
-		personal_text=(TextView) findViewById(R.id.personal_text);
+		// 侧滑文字
+		personal_text = (TextView) findViewById(R.id.personal_text);
 		recommend_text = (TextView) findViewById(R.id.recommend_text);
 		index_text = (TextView) findViewById(R.id.index_text);
 		download_text = (TextView) findViewById(R.id.download_text);
@@ -263,6 +268,14 @@ public class MaininterfaceActivity extends Activity implements
 				startActivity(intent);
 			}
 		});
+
+		listview_image.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				listview_image.setImageResource(
+						R.drawable.peso_logo);
+				LoadingItemBean();
+			}
+		});
 	}
 
 	public void toggleMenu(View view) {
@@ -274,21 +287,6 @@ public class MaininterfaceActivity extends Activity implements
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 		// TODO Auto-generated method stub
-		// b.putString("text", dataList.get(arg2).getitemContent());
-
-		// 内容封装至text
-		/*
-		 * Gson gson = new Gson(); text.putString("title",
-		 * pub.get(arg2).getTitle()); text.putString("doi",
-		 * pub.get(arg2).getDoi()); text.putString("content",
-		 * pub.get(arg2).get_abstract()); text.putString("keywords",
-		 * pub.get(arg2).getKeywords()); text.putString("date",
-		 * pub.get(arg2).getDate()); text.putString("year",
-		 * pub.get(arg2).getYear() + ""); text.putString("url",
-		 * pub.get(arg2).getUrl().get(0)); text.putString("pdf_url",
-		 * pub.get(arg2).getPdf_src().get(0));
-		 */
-		// str就是textView上的内容
 		Intent intent = new Intent(MaininterfaceActivity.this,
 				CommentActivity.class);
 		intent.putExtra("pub", pub.get(arg2));
@@ -338,23 +336,28 @@ public class MaininterfaceActivity extends Activity implements
 
 	private void LoadingItemBean() {
 		if (!isLoading) {
-			mMainListView.setVisibility(View.VISIBLE);
 			isLoading = true;
-			footer.findViewById(R.id.load_layout).setVisibility(
-					View.VISIBLE);
+			// 跳动效果
+			Animation animation = AnimationUtils.loadAnimation(
+					MaininterfaceActivity.this,
+					R.anim.listview_image_change);
+			listview_image.startAnimation(animation);
+
+			footer.findViewById(R.id.load_layout)
+					.setVisibility(View.VISIBLE);
 			System.out.println("footer加载好了");
 			Log.i("----", "footer加载好了了");
 			Log.i("tag", "start");
 			/* 获取num个最新的论文 */
 			sharedPreferences = getSharedPreferences("UserInfo",
 					MODE_PRIVATE);
-			final String mes = sharedPreferences.getString(
-					"username", ""); // getIntent().getStringExtra("username")括弧里边username为
-								// sp的key
-								// 第二个参数为
-								// 默认值，这里默认获取登录传来的user信息的string
-								// //
-								// getIntent().getStringExtra("username")
+			final String mes = sharedPreferences
+					.getString("username", ""); // getIntent().getStringExtra("username")括弧里边username为
+									// sp的key
+									// 第二个参数为
+									// 默认值，这里默认获取登录传来的user信息的string
+									// //
+									// getIntent().getStringExtra("username")
 			// String
 			// mes=getIntent().getStringExtra("username");
 			commthread = new CommThread("recomendations" + mes
@@ -379,26 +382,59 @@ public class MaininterfaceActivity extends Activity implements
 					} else {
 						isLoading = false;
 						Toast.makeText(MaininterfaceActivity.this,
-								"网络连接超时",
+								"Network Connection Timeout",
 								Toast.LENGTH_SHORT)
 								.show();
+						listview_image.clearAnimation();
+
+						listview_image.setImageResource(
+								R.drawable.peso_logo_break);
 						footer.findViewById(
 								R.id.load_layout)
 								.setVisibility(View.GONE);
 						handler.removeCallbacks(this);
 					}
 					if (commthread.publist.size() > 1) {
-						Log.i("传来论文数量",
-								""
-										+ commthread.publist
-												.size());
+						Log.i("传来论文数量", ""
+								+ commthread.publist
+										.size());
 						pub.addAll(commthread.publist);// 在这里往列表里面加
 						if (runFirst) {
 							mItemView = new ItemView(
 									MaininterfaceActivity.this,
 									pub);
-							mMainListView.setAdapter(mItemView);
-							runFirst = false;
+							listview_image.clearAnimation();
+							// 清除动画效果以后 执行变大效果
+							Animation animation = AnimationUtils
+									.loadAnimation(MaininterfaceActivity.this,
+											R.anim.listview_image_change2);
+							listview_image.startAnimation(
+									animation);
+							animation.setAnimationListener(
+									new AnimationListener() {
+								public void onAnimationEnd(
+										Animation animation) {
+									listview_image.setVisibility(
+											View.GONE);
+									mMainListView.setVisibility(
+											View.VISIBLE);
+									mMainListView.setAdapter(
+											mItemView);
+									runFirst = false;
+								}
+								@Override
+								public void onAnimationStart(
+										Animation animation) {
+									// TODO Auto-generated method stub	
+								}
+
+								@Override
+								public void onAnimationRepeat(
+										Animation animation) {
+									// TODO Auto-generated method stub
+								}
+
+							});
 						} else {
 							mItemView.notifyDataSetChanged();
 						}
